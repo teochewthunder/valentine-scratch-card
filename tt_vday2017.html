@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Scratch!</title>
+		<style>
+			#scratch_wrapper
+			{
+				width:400px;
+				height:400px;
+				margin:10% auto 0 auto;
+				border: 1px solid #FF0000;
+				background-image: url(https://1.bp.blogspot.com/-Wyl5DmU724M/WJcycB4KXxI/AAAAAAAAB4g/BXIR90AulRkFeI9-c52uR6-gPn7Xo7wrQCLcB/s1600/51514353_m.jpg);
+				background-size:cover;
+				background-repeat:no-repeat;
+				background-position:50% 50%;
+			}
+
+			.scratch
+			{
+				width:5px;
+				height:5px;
+				float:left;
+				transition:all 1s;
+			}
+
+			.full
+			{
+				background-color:rgba(255,0,0,1);
+			}
+
+			.half
+			{
+				background-color:rgba(255,0,0,0.5);
+			}
+
+			.almostgone
+			{
+				background-color:rgba(255,0,0,0.2);
+			}
+
+			.gone
+			{
+				background-color:rgba(255,0,0,0);
+			}
+		</style>
+
+		<script>
+			function unscratch()
+			{
+				var wrapper=document.getElementById("scratch_wrapper");
+				wrapper.innerHTML="";
+
+				for (var i=0;i<80;i++)
+				{
+					for (var j=0;j<80;j++)
+					{
+						scratch=document.createElement("div");
+						scratch.className="scratch full";
+						scratch.id="scratch_"+i+"_"+j;
+						scratch.onmouseover=function(){scratchit(this.id)};
+						wrapper.appendChild(scratch);
+					}
+				}
+			}
+
+			function scratchit(scratchid)
+			{
+				var x=0;
+				var y=0;
+
+				var xyvalues=scratchid.split("_");
+				x=parseInt(xyvalues[1]);
+				y=parseInt(xyvalues[2]);
+
+				var id="";
+
+				changeopacity(scratchid,"gone");
+			}
+
+			function scratchit(scratchid)
+			{
+				var x=0;
+				var y=0;
+
+				var xyvalues=scratchid.split("_");
+				x=parseInt(xyvalues[1]);
+				y=parseInt(xyvalues[2]);
+
+				var id="";
+
+				changeopacity(scratchid,"gone");
+
+				id="scratch_"+(x-1)+"_"+y;
+				changeopacity(id,"almostgone");
+				
+				id="scratch_"+(x+1)+"_"+y;
+				changeopacity(id,"almostgone");
+
+				id="scratch_"+x+"_"+(y-1);
+				changeopacity(id,"almostgone");
+				
+				id="scratch_"+x+"_"+(y+1);
+				changeopacity(id,"almostgone");
+
+				id="scratch_"+(x+1)+"_"+(y+1);
+				changeopacity(id,"almostgone");
+
+				id="scratch_"+(x-1)+"_"+(y+1);
+				changeopacity(id,"almostgone");
+
+				id="scratch_"+(x+1)+"_"+(y-1);
+				changeopacity(id,"almostgone");
+
+				id="scratch_"+(x-1)+"_"+(y-1);
+				changeopacity(id,"almostgone");
+
+				id="scratch_"+(x-2)+"_"+y;
+				changeopacity(id,"half");
+				
+				id="scratch_"+(x+2)+"_"+y;
+				changeopacity(id,"half");
+
+				id="scratch_"+x+"_"+(y-2);
+				changeopacity(id,"half");
+				
+				id="scratch_"+x+"_"+(y+2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x+2)+"_"+(y+2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x-2)+"_"+(y+2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x+2)+"_"+(y-2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x-2)+"_"+(y-2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x+1)+"_"+(y+2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x-1)+"_"+(y+2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x+1)+"_"+(y-2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x-1)+"_"+(y-2);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x+2)+"_"+(y+1);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x-2)+"_"+(y+1);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x+2)+"_"+(y-1);
+				changeopacity(id,"half");
+
+				id="scratch_"+(x-2)+"_"+(y-1);
+				changeopacity(id,"half");
+			}
+
+			function changeopacity(scratchid,opacity)
+			{
+				function getopacity(div)
+				{
+					var bg=div.className;
+					bg=bg.replace("scratch ","");
+					return bg;
+				}
+
+				var currentopacity="";
+				var scratched=document.getElementById(scratchid);
+
+				if (scratched!=null)
+				{
+					if (opacity=="half")
+					{
+						currentopacity=getopacity(scratched);
+
+						if (currentopacity=="full")
+						{
+							scratched.className="scratch half";
+						}
+
+						if (currentopacity=="half")
+						{
+							scratched.className="scratch almostgone";
+						}
+
+						if (currentopacity=="almostgone")
+						{
+							scratched.className="scratch gone";
+						}
+					}
+
+					if (opacity=="almostgone")
+					{
+						currentopacity=getopacity(scratched);
+
+						if (currentopacity=="full")
+						{
+							scratched.className="scratch almostgone";
+						}
+
+						if (currentopacity=="half")
+						{
+							scratched.className="scratch gone";
+						}
+
+						if (currentopacity=="almostgone")
+						{
+							scratched.className="scratch gone";
+						}
+					}
+
+					if (opacity=="gone")
+					{
+						document.getElementById(scratchid).className="scratch gone";	
+					}	
+				}
+			}
+		</script>
+	</head>
+	<body onload="unscratch()">
+		<div id="scratch_wrapper">
+
+		</div>
+	</body>
+</html>
